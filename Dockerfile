@@ -1,14 +1,13 @@
-# Fedora version (e.g. 32, 33, ...) can be passed using --build-arg=fedora_version=...
-ARG fedora_version=latest
-FROM registry.fedoraproject.org/fedora:${fedora_version}
+
+FROM ubuntu:latest
 
 # Install required packages.
-RUN dnf update -y && \
-    dnf --nodocs install -y \
+RUN sudo apt update -y && \
+    sudo apt --nodocs install -y \
         gnome-session-xsession gnome-extensions-app xorg-x11-xinit \
         xorg-x11-server-Xvfb gnome-terminal xdotool xautomation sudo && \
-    dnf clean all -y && \
-    rm -rf /var/cache/dnf
+    sudo apt clean all -y && \
+    rm -rf /var/cache/apt
 
 # Copy system configuration.
 COPY etc /etc
